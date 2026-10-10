@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نبيه | لتنمية التركيز والذكاء للأطفال</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chart.js for persuasive data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(124, 58, 237, 0.15); border-color: rgba(124, 58, 237, 0.3); }
+        
+        .gradient-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-pattern { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .fear-card { border-top: 4px solid #ef4444; }
+        .success-card { border-top: 4px solid #10b981; }
+        
+        /* Smooth progress bar fill */
+        .progress-fill { transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white relative">
+
+    <!-- Background Decorative Elements -->
+    <div class="fixed top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-brand-500/10 blur-[100px] -z-10 animate-pulse-slow"></div>
+    <div class="fixed bottom-[-10%] left-[-5%] w-[30vw] h-[30vw] rounded-full bg-accent-500/10 blur-[100px] -z-10 animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="fixed inset-0 bg-pattern opacity-40 -z-20"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/50 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-2xl shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-slate-900 tracking-tight">نبيه <span class="text-brand-600">.</span></h1>
+                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">عبقرية الطفولة المبكرة</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
+                <a href="#problem" class="hover:text-brand-600 transition">الخطر الخفي</a>
+                <a href="#solution" class="hover:text-brand-600 transition">كيف يعمل؟</a>
+                <a href="#metrics" class="hover:text-brand-600 transition">مؤشرات التحسن</a>
+                <a href="#testimonials" class="hover:text-brand-600 transition">تجارب الآباء</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleModal('login-modal')" class="px-5 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-100 transition">تسجيل الدخول</button>
+                <button onclick="toggleModal('register-modal')" class="px-6 py-2.5 rounded-xl text-sm font-black text-white bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 shadow-lg shadow-brand-500/30 transition hover:-translate-y-0.5">ابدأ فحص طفلك مجاناً</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-20">
+        
+        <!-- HERO SECTION (Targeting the internal fear & hope) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 relative z-10 text-center lg:text-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 text-rose-600 font-bold text-xs border border-rose-100">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                        </span>
+                        النافذة الزمنية الحرجة لنمو الدماغ (7-12 سنة) تغلق قريباً!
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight">
+                        هل يفقد طفلك <span class="bg-gradient-to-r from-brand-600 to-accent-500 gradient-text">تركيزه بسرعة؟</span><br>لا تترك مستقبله للصدفة.
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-slate-600 font-semibold leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        الشاشات وتشتت الانتباه تسرق ذكاء طفلك يومياً. <strong class="text-slate-900">منصة نبيه</strong> هي الحل العلمي الأول عربياً لإعادة برمجة الدماغ، رفع مستوى التركيز، وزيادة سرعة البديهة في 20 دقيقة يومياً فقط.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                        <button onclick="toggleModal('register-modal')" class="w-full sm:w-auto px-8 py-4 rounded-2xl text-base font-black text-white bg-brand-600 hover:bg-brand-700 shadow-xl shadow-brand-500/30 transition hover:-translate-y-1 flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-rocket"></i> أنقذ تركيز طفلك الآن
+                        </button>
+                        <p class="text-xs text-slate-500 font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-shield-check text-emerald-500"></i> موثوق من أطباء الأعصاب والتربويين
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="relative z-10 lg:ml-auto flex justify-center lg:justify-end animate-float">
+                    <!-- Marketing Hero Visual -->
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-400 rounded-full blur-3xl opacity-20"></div>
+                        <div class="glass-card rounded-[2.5rem] p-6 border-4 border-white/40 shadow-2xl relative overflow-hidden bg-white/60">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden border-2 border-white shadow-sm flex items-center justify-center text-slate-400"><i class="fa-solid fa-user"></i></div>
+                                    <div>
+                                        <h4 class="text-sm font-black text-slate-900">ملف الطالب: خالد</h4>
+                                        <p class="text-[10px] text-brand-600 font-bold">معدل التطور المعرفي</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-black flex items-center gap-1"><i class="fa-solid fa-arrow-up"></i> +84% ذكاء</span>
+                            </div>
+                            <div class="h-48 w-full bg-white rounded-2xl border border-slate-100 p-2 shadow-inner">
+                                <canvas id="heroChart"></canvas>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-3">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+                                    <div class="text-[10px] font-bold text-slate-500 mb-1">سرعة البديهة</div>
+                                    <div class="text-lg font-black text-accent-600">0.8 ثانية</div>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+                                    <div class="text-[10px] font-bold text-slate-500 mb-1">مدة التركيز المتواصل</div>
+                                    <div class="text-lg font-black text-brand-600">45 دقيقة</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 glass-card px-5 py-3 rounded-2xl border border-white/50 shadow-xl flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-500">تم التخلص من</p>
+                                <p class="text-xs font-black text-slate-900">التشتت وضعف الذاكرة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM SECTION (The Psychological Fear) -->
+        <section id="problem" class="py-20 bg-slate-900 text-white relative overflow-hidden my-12 rounded-[3rem] mx-4 sm:mx-8 lg:mx-12 shadow-2xl">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-50"></div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+                <span class="text-rose-400 font-bold text-sm tracking-wider uppercase mb-3 block">هل تلاحظ هذه العلامات على طفلك؟</span>
+                <h2 class="text-3xl sm:text-4xl font-black mb-12 leading-tight">السنوات من 7 إلى 12 هي الأخطر!<br><span class="text-slate-400 text-2xl font-semibold">تجاهل هذه المؤشرات يعني تأخراً دراسياً مدى الحياة.</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right">
+                    <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700 fear-card hover:bg-slate-800 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-4 border border-rose-500/30">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h3 class="text-lg font-black text-white mb-2">إدمان الشاشات السلبي</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-semibold">يقضي ساعات على الأجهزة الذكية دون فائدة، مما يدمر قشرة الدماغ المسؤولة عن الانتباه والتفكير العميق.</p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700 fear-card hover:bg-slate-800 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 border border-amber-500/30">
+                            <i class="fa-solid fa-head-side-brain"></i>
+                        </div>
+                        <h3 class="text-lg font-black text-white mb-2">النسيان وتشتت الذهن</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-semibold">تكرر له التوجيهات وينساها فوراً. يواجه صعوبة في إنهاء الواجبات المدرسية المباشرة ويشعر بالملل السريع.</p>
+                    </div>
+
+                    <div class="bg-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700 fear-card hover:bg-slate-800 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-4 border border-orange-500/30">
+                            <i class="fa-solid fa-person-falling"></i>
+                        </div>
+                        <h3 class="text-lg font-black text-white mb-2">التأخر عن الأقران</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-semibold">بطء في ردة الفعل وسرعة البديهة مقارنة بزملائه، مما يهز ثقته بنفسه ويجعله عرضة للتنمر أو الانطواء.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- METRICS & PROOF SECTION (The Logical Persuasion) -->
+        <section id="metrics" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-bold text-sm tracking-wider uppercase mb-2 block"><i class="fa-solid fa-chart-column"></i> الأرقام لا تكذب</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-4">كيف تصنع "نبيه" الفارق في 30 يوماً؟</h2>
+                <p class="text-slate-600 font-semibold text-sm sm:text-base leading-relaxed">قمنا بتحويل الألعاب إلى تمارين دماغية مبنية على علم الأعصاب الإدراكي. شاهد متوسط تحسن الأطفال الذين التزموا ببرنامجنا لمدة شهر واحد فقط.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Progress Bars -->
+                <div class="space-y-8">
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden success-card">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-base font-black text-slate-900"><i class="fa-solid fa-bullseye text-brand-500 ml-1"></i> معدل التركيز والانتباه المستمر</h4>
+                                <p class="text-[11px] text-slate-500 font-bold mt-1">القدرة على البقاء منتبهاً للمهام المدرسية دون تشتت.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-slate-400 line-through mr-2">قبل: 20%</span>
+                                <span class="text-2xl font-black text-emerald-600">85%</span>
+                            </div>
+                        </div>
+                        <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full progress-fill w-0 shadow-[0_0_10px_rgba(16,185,129,0.5)]" data-target="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden success-card">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-base font-black text-slate-900"><i class="fa-solid fa-bolt text-accent-500 ml-1"></i> سرعة البديهة وحل المشكلات</h4>
+                                <p class="text-[11px] text-slate-500 font-bold mt-1">تقليل وقت رد الفعل التحليلي أمام الأسئلة المعقدة.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-slate-400 line-through mr-2">قبل: 35%</span>
+                                <span class="text-2xl font-black text-emerald-600">92%</span>
+                            </div>
+                        </div>
+                        <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full progress-fill w-0 shadow-[0_0_10px_rgba(16,185,129,0.5)]" data-target="92%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-3xl relative overflow-hidden success-card">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-base font-black text-slate-900"><i class="fa-solid fa-sd-card text-indigo-500 ml-1"></i> الذاكرة العاملة والاسترجاع</h4>
+                                <p class="text-[11px] text-slate-500 font-bold mt-1">حفظ التعليمات واستدعاء المعلومات الدراسية بسرعة.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-slate-400 line-through mr-2">قبل: 40%</span>
+                                <span class="text-2xl font-black text-emerald-600">78%</span>
+                            </div>
+                        </div>
+                        <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full progress-fill w-0 shadow-[0_0_10px_rgba(16,185,129,0.5)]" data-target="78%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Chart -->
+                <div class="glass-card p-6 sm:p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl text-center">
+                    <h3 class="text-lg font-black text-slate-900 mb-2">مقارنة نمو القدرات الإدراكية</h3>
+                    <p class="text-[11px] text-slate-500 font-bold mb-6">الطفل العادي مقابل الطفل المتدرب في "نبيه" خلال 4 أسابيع</p>
+                    <div class="h-64 w-full">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-4 font-semibold text-right">* دراسة أجريت على عينة من 500 طالب مستخدم للمنصة.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS (Social Proof) -->
+        <section id="testimonials" class="py-20 bg-brand-50 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-4">آباء اتخذوا القرار الصحيح في الوقت المناسب</h2>
+                    <p class="text-slate-600 font-semibold">استمع لتجارب حقيقية حول التحول الجذري في سلوك وذكاء أطفالهم.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Review 1 -->
+                    <div class="glass-card bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative">
+                        <div class="absolute -top-5 right-8 text-4xl text-brand-200"><i class="fa-solid fa-quote-right"></i></div>
+                        <div class="flex gap-1 text-accent-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-slate-700 font-semibold leading-relaxed mb-6">"كنت أراقب ابني يضيع ساعات على ألعاب لا تفيده، وتركيزه في المدرسة في انحدار. منذ اشتراكنا في نبيه، أصبح يحل واجباته في نصف الوقت! سرعة بديهته الآن تفاجئني أنا ووالده."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-black">أم</div>
+                            <div>
+                                <h5 class="text-xs font-black text-slate-900">أم فهد، الرياض</h5>
+                                <p class="text-[10px] text-slate-500 font-bold">عمر الطفل: 9 سنوات</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="glass-card bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative transform md:-translate-y-4 border-b-4 border-b-brand-500">
+                        <div class="absolute -top-5 right-8 text-4xl text-brand-200"><i class="fa-solid fa-quote-right"></i></div>
+                        <div class="flex gap-1 text-accent-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-sm text-slate-700 font-semibold leading-relaxed mb-6">"المعلمون كانوا يشتكون من فرط حركته وتشتته الدائم. منصة نبيه أعطت الدماغ التحدي الذي يحتاجه. الشاشة لم تعد عدواً، بل أداة علاجية. ابني الآن من الأوائل."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-black">أب</div>
+                            <div>
+                                <h5 class="text-xs font-black text-slate-900">أبو عبد الرحمن، جدة</h5>
+                                <p class="text-[10px] text-slate-500 font-bold">عمر الطفل: 8 سنوات</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="glass-card bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative">
+                        <div class="absolute -top-5 right-8 text-4xl text-brand-200"><i class="fa-solid fa-quote-right"></i></div>
+                        <div class="flex gap-1 text-accent-500 text-xs mb-4">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <p class="text-sm text-slate-700 font-semibold leading-relaxed mb-6">"أفضل استثمار في حياة ابنتي. كانت تعاني من ضعف في الحفظ وبطء في الاستيعاب. المؤشرات في لوحة تحكم نبيه طمأنتني، والتحسن واضح في ثقتها بنفسها أمام زميلاتها."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 font-black">أم</div>
+                            <div>
+                                <h5 class="text-xs font-black text-slate-900">أم سارة، الدمام</h5>
+                                <p class="text-[10px] text-slate-500 font-bold">عمر الطفلة: 11 سنة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div class="bg-gradient-to-br from-slate-900 to-brand-900 rounded-[3rem] p-10 sm:p-16 relative overflow-hidden shadow-2xl border border-brand-800">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500 rounded-full blur-[80px] opacity-30"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent-500 rounded-full blur-[80px] opacity-20"></div>
+                
+                <h2 class="text-3xl sm:text-5xl font-black text-white mb-6 relative z-10">الذكاء ليس وراثة فقط، <span class="text-accent-400">الذكاء يُصنع!</span></h2>
+                <p class="text-slate-300 font-semibold text-sm sm:text-base max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed">كل يوم تتأخر فيه هو يوم يفقد فيه طفلك فرصة بناء روابط عصبية جديدة. انضم لأكثر من 10,000 أب وأم يثقون في "نبيه" لبناء عقول أبنائهم.</p>
+                
+                <button onclick="toggleModal('register-modal')" class="relative z-10 px-10 py-5 rounded-2xl text-lg font-black text-slate-900 bg-white hover:bg-slate-50 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition hover:-translate-y-1 flex items-center justify-center gap-3 mx-auto">
+                    احجز مقعد طفلك وابدأ التقييم الآن <i class="fa-solid fa-arrow-left mt-1"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4 opacity-50">
+                <i class="fa-solid fa-brain text-2xl text-slate-900"></i>
+                <span class="text-xl font-black text-slate-900">نبيه</span>
+            </div>
+            <p class="text-xs text-slate-500 font-bold">منصة نبيه لتنمية القدرات الإدراكية والتركيز للأطفال 2026 © جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card rounded-3xl max-w-md w-full p-8 shadow-2xl bg-white border border-slate-200 transform scale-95 transition-transform duration-300" id="login-card">
+            <div class="flex justify-between items-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-xl font-black"><i class="fa-solid fa-right-to-bracket"></i></div>
+                <button onclick="toggleModal('login-modal')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div>
+                <h3 class="text-xl font-black text-slate-900">تسجيل الدخول للآباء</h3>
+                <p class="text-xs text-slate-500 font-bold mt-1 mb-6">تابع مؤشرات تطور طفلك واستعرض التقارير.</p>
+            </div>
+            <div class="space-y-4 text-right">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">البريد الإلكتروني / رقم الجوال</label>
+                    <input type="text" class="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 transition" placeholder="أدخل حسابك...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">كلمة المرور</label>
+                    <input type="password" class="w-full px-4 py-3.5 rounded-2xl border border-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 transition" placeholder="••••••••">
+                </div>
+                <button type="button" class="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-black text-sm shadow-lg shadow-brand-500/30 transition flex items-center justify-center gap-2 mt-2">
+                    دخول للوحة التحكم <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="text-center mt-4">
+                    <button onclick="toggleModal('login-modal'); toggleModal('register-modal');" class="text-xs font-bold text-brand-600 hover:text-brand-800 transition">ليس لديك حساب؟ سجل طفلك الآن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL (The Marketing Hook) -->
+    <div id="register-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-8 shadow-2xl bg-white border border-brand-200 transform scale-95 transition-transform duration-300 overflow-hidden relative" id="register-card">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-brand-500"></div>
+            
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <span class="px-2.5 py-1 rounded-md bg-rose-50 text-rose-600 text-[10px] font-black border border-rose-100 inline-block mb-2 animate-pulse">خطوة واحدة لإنقاذ تركيزه</span>
+                    <h3 class="text-2xl font-black text-slate-900">إنشاء ملف تشخيصي لطفلك</h3>
+                    <p class="text-xs text-slate-500 font-bold mt-1">دعنا نحدد مستوى الذكاء والتركيز الحالي لبدء خطة التطور.</p>
+                </div>
+                <button onclick="toggleModal('register-modal')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition shrink-0"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-4 text-right">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">اسم الطفل الأول</label>
+                        <input type="text" id="childName" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 outline-none" placeholder="مثال: خالد">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">عمر الطفل (7-12)</label>
+                        <select id="childAge" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 outline-none cursor-pointer">
+                            <option value="">اختر العمر...</option>
+                            <option value="7">7 سنوات</option>
+                            <option value="8">8 سنوات</option>
+                            <option value="9">9 سنوات</option>
+                            <option value="10">10 سنوات</option>
+                            <option value="11">11 سنوات</option>
+                            <option value="12">12 سنة</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">ما هو أكثر ما يقلقك تجاهه؟ (اختياري، لبناء الخطة)</label>
+                    <select id="parentConcern" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 outline-none cursor-pointer text-rose-600">
+                        <option value="focus">تشتت الانتباه والنسيان</option>
+                        <option value="speed">بطء الاستيعاب وسرعة البديهة</option>
+                        <option value="screens">إدمان الشاشات والألعاب غير المفيدة</option>
+                        <option value="grades">تراجع المستوى الدراسي بشكل عام</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">رقم جوال ولي الأمر (لإرسال التقرير)</label>
+                    <input type="tel" id="parentPhone" dir="ltr" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-sm font-semibold bg-slate-50 outline-none text-right" placeholder="05XXXXXXXX">
+                </div>
+                
+                <button type="button" onclick="registerNewStudent(event)" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-black text-base shadow-lg shadow-brand-500/30 transition flex items-center justify-center gap-2 mt-4">
+                    <i class="fa-solid fa-file-medical"></i> ابدأ التقييم المجاني الآن
+                </button>
+                <p class="text-[10px] text-center text-slate-400 font-bold mt-2"><i class="fa-solid fa-lock text-brand-400"></i> بيانات طفلك مشفرة ومحمية بالكامل.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'bg-white/95');
+                nav.classList.remove('bg-white/80', 'shadow-sm');
+            } else {
+                nav.classList.add('bg-white/80', 'shadow-sm');
+                nav.classList.remove('shadow-md', 'bg-white/95');
+            }
+        });
+
+        // Animate progress bars when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.progress-fill');
+                    bars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-target');
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        const metricsSection = document.getElementById('metrics');
+        if (metricsSection) observer.observe(metricsSection);
+
+        // Chart.js Configuration
+        document.addEventListener("DOMContentLoaded", function() {
+            // Chart 1: Hero Section (Mockup of child's device)
+            const ctxHero = document.getElementById('heroChart').getContext('2d');
+            new Chart(ctxHero, {
+                type: 'line',
+                data: {
+                    labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'أسبوع 4'],
+                    datasets: [{
+                        label: 'مستوى التركيز',
+                        data: [25, 45, 70, 95],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#10b981',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { font: { family: 'Cairo', size: 10 } } },
+                        y: { display: false, min: 0, max: 100 }
+                    }
+                }
+            });
+
+            // Chart 2: Comparison in Metrics Section
+            const ctxComp = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['الأسبوع الأول', 'الأسبوع الثاني', 'الأسبوع الثالث', 'الأسبوع الرابع'],
+                    datasets: [
+                        {
+                            label: 'مستخدم منصة نبيه',
+                            data: [30, 55, 75, 95],
+                            backgroundColor: '#7c3aed',
+                            borderRadius: 6,
+                        },
+                        {
+                            label: 'الطفل العادي (شاشات ترفيهية)',
+                            data: [30, 28, 25, 20],
+                            backgroundColor: '#cbd5e1',
+                            borderRadius: 6,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { font: { family: 'Cairo', weight: 'bold' } },
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { callback: function(value) { return value + "%"; } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- كود ربط Firebase والمنطق البرمجي لصفحة التسويق -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+
+        // مفاتيح الربط الخاصة بمشروعك
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzNJ4BUm2-uzUXlrNd8tg4M5OLzu1GOjg",
+            authDomain: "nabih-40d31.firebaseapp.com",
+            projectId: "nabih-40d31",
+            storageBucket: "nabih-40d31.firebasestorage.app",
+            messagingSenderId: "624219593568",
+            appId: "1:624219593568:web:624f3c7a0031828a72dc05"
+        };
+
+        // تهيئة فايربيس
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // جعل دالة إغلاق وفتح النوافذ متاحة عالمياً
+        window.toggleModal = function(modalID) {
+            const modal = document.getElementById(modalID);
+            const cardId = modalID === 'login-modal' ? 'login-card' : 'register-card';
+            const card = document.getElementById(cardId);
+            
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                void modal.offsetWidth;
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+            } else {
+                modal.classList.add('opacity-0');
+                card.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        };
+
+        // دالة إرسال البيانات
+        window.registerNewStudent = async function(event) {
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            
+            // جلب القيم من الحقول
+            const childName = document.getElementById('childName').value;
+            const childAge = document.getElementById('childAge').value;
+            const concern = document.getElementById('parentConcern').value;
+            const phone = document.getElementById('parentPhone').value;
+
+            // التحقق من إدخال البيانات
+            if(!childName || !childAge || !phone) {
+                alert("الرجاء تعبئة اسم الطفل، العمر، ورقم الجوال!");
+                return;
+            }
+
+            // تغيير شكل الزر لإظهار حالة التحميل
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> جاري إنشاء الملف...';
+            btn.disabled = true;
+
+            try {
+                // حفظ البيانات في جدول "students" في Firestore
+                const docRef = await addDoc(collection(db, "students"), {
+                    name: childName,
+                    age: parseInt(childAge),
+                    concern: concern,
+                    parentPhone: phone,
+                    status: "جديد",
+                    progress: 0,
+                    joinedAt: serverTimestamp()
+                });
+
+                // نجاح العملية
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> تم التسجيل بنجاح!';
+                btn.classList.replace('from-brand-600', 'from-emerald-500');
+                btn.classList.replace('to-brand-500', 'to-emerald-400');
+
+                // إغلاق النافذة بعد ثانية
+                setTimeout(() => {
+                    toggleModal('register-modal');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.replace('from-emerald-500', 'from-brand-600');
+                    btn.classList.replace('to-emerald-400', 'to-brand-500');
+                    
+                    // تفريغ الحقول
+                    document.getElementById('childName').value = '';
+                    document.getElementById('childAge').value = '';
+                    document.getElementById('parentPhone').value = '';
+                    
+                    alert("تم إنشاء ملف طفلك بنجاح! سيتم التواصل معك قريباً.");
+                }, 1500);
+
+            } catch (error) {
+                console.error("خطأ في التسجيل: ", error);
+                alert("حدث خطأ أثناء التسجيل، حاول مرة أخرى.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
